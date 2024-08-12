@@ -94,5 +94,8 @@
     "vehicle_not_driver": "Tidak berada di kursi pengemudi.",
     "warngiven": "Diingatkan: ",
     "warned": "Kamu telah diingatkan.",
-    "weatherType": "Cuaca diubah menjadi: %s."
+    "weatherType": "Cuaca diubah menjadi: %s.",
+    "raycast_activated": "Raycast diaktifkan",
+    "raycast_deactivated": "Raycast dimatikan",
+    "coords_copied": "Kordinat tersalin"
 }

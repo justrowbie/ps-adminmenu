@@ -13,6 +13,7 @@ ui_page 'html/index.html'
 -- ui_page 'http://localhost:5173/' --for dev
 
 client_script {
+  '@qbx_core/modules/playerdata.lua',
   'client/**',
 }
 
@@ -23,6 +24,7 @@ server_script {
 
 shared_script {
   '@ox_lib/init.lua',
+  '@qbx_core/modules/lib.lua',
   "shared/**",
 }
 

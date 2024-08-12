@@ -1,10 +1,16 @@
-QBCore = exports['qb-core']:GetCoreObject()
-
 lib.addCommand('admin', {
     help = 'Open the admin menu',
-    restricted = 'qbcore.mod'
+    restricted = 'group.mod'
 }, function(source)
-    if not QBCore.Functions.IsOptin(source) then TriggerClientEvent('QBCore:Notify', source, 'You are not on admin duty', 'error'); return end
+    if not exports.qbx_core:IsOptin(source) then exports.qbx_core:Notify(source, 'You are not on admin duty', 'error'); return end
     TriggerClientEvent('ps-adminmenu:client:OpenUI', source)
 end)
+
+lib.addCommand("raycast", {
+    help = "Enable raycast coords (God Only)",
+    restricted = 'group.mod'
+}, function(source)
+    TriggerClientEvent('ps-adminmenu:client:raycast', source)
+end)
+
 -- Callbacks

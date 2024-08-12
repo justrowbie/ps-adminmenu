@@ -16,13 +16,13 @@ RegisterNetEvent('ps-adminmenu:client:ToggleGodmode', function(data)
     godmode = not godmode
 
     if godmode then
-        QBCore.Functions.Notify(locale("godmode", "enabled"), 'primary')
+        exports.qbx_core:Notify(locale("godmode", "enabled"), 'primary')
         while godmode do
             Wait(0)
             SetPlayerInvincible(cache.playerId, true)
         end
         SetPlayerInvincible(cache.playerId, false)
-        QBCore.Functions.Notify(locale("godmode", "disabled"), 'primary')
+        exports.qbx_core:Notify(locale("godmode", "disabled"), 'primary')
     end
 end)
 
@@ -36,7 +36,7 @@ end)
 local function CopyCoords(data)
     local coords = GetEntityCoords(cache.ped)
     local heading = GetEntityHeading(cache.ped)
-    local formats = { vector2 = "%.2f, %.2f", vector3 = "%.2f, %.2f, %.2f", vector4 = "%.2f, %.2f, %.2f, %.2f", heading =
+    local formats = { vector2 = "vec2(%.2f, %.2f)", vector3 = "vec3(%.2f, %.2f, %.2f)", vector4 = "vec4(%.2f, %.2f, %.2f, %.2f)", heading =
     "%.2f" }
     local format = formats[data]
 
@@ -54,17 +54,17 @@ local function CopyCoords(data)
     lib.setClipboard(clipboardText)
 end
 
-RegisterCommand("vector2", function()
+RegisterCommand("vec2", function()
     if not CheckPerms('mod') then return end
     CopyCoords("vector2")
 end, false)
 
-RegisterCommand("vector3", function()
+RegisterCommand("vec3", function()
     if not CheckPerms('mod') then return end
     CopyCoords("vector3")
 end, false)
 
-RegisterCommand("vector4", function()
+RegisterCommand("vec4", function()
     if not CheckPerms('mod') then return end
     CopyCoords("vector4")
 end, false)
@@ -106,10 +106,10 @@ local function showCoordsMenu()
             action = "showCoordsMenu",
             data = {
                 show = showCoords,
-                x = QBCore.Shared.Round(coords.x, 2),
-                y = QBCore.Shared.Round(coords.y, 2),
-                z = QBCore.Shared.Round(coords.z, 2),
-                heading = QBCore.Shared.Round(heading, 2)
+                x = qbx.math.round(coords.x, 2),
+                y = qbx.math.round(coords.y, 2),
+                z = qbx.math.round(coords.z, 2),
+                heading = qbx.math.round(heading, 2)
             }
         })
     end
@@ -136,9 +136,9 @@ RegisterNetEvent('ps-adminmenu:client:SetAmmo', function(data, selectedData)
 
     if weapon ~= nil then
         SetPedAmmo(cache.ped, weapon, ammo)
-        QBCore.Functions.Notify(locale("set_wepaon_ammo", tostring(ammo)), 'success')
+        exports.qbx_core:Notify(locale("set_wepaon_ammo", tostring(ammo)), 'success')
     else
-        QBCore.Functions.Notify(locale("no_weapon"), 'error')
+        exports.qbx_core:Notify(locale("no_weapon"), 'error')
     end
 end)
 
@@ -148,9 +148,9 @@ RegisterCommand("setammo", function(source)
     local ammo = 999
     if weapon ~= nil then
         SetPedAmmo(cache.ped, weapon, ammo)
-        QBCore.Functions.Notify(locale("set_wepaon_ammo", tostring(ammo)), 'success')
+        exports.qbx_core:Notify(locale("set_wepaon_ammo", tostring(ammo)), 'success')
     else
-        QBCore.Functions.Notify(locale("no_weapon"), 'error')
+        exports.qbx_core:Notify(locale("no_weapon"), 'error')
     end
 end, false)
 
@@ -167,7 +167,7 @@ RegisterNetEvent('ps-adminmenu:client:ToggleDev', function(dataKey)
     TriggerEvent('ps-adminmenu:client:ToggleCoords', dataKey)  -- toggle Coords
     TriggerEvent('ps-adminmenu:client:ToggleGodmode', dataKey) -- Godmode
 
-    QBCore.Functions.Notify(locale("toggle_dev"), 'success')
+    exports.qbx_core:Notify(locale("toggle_dev"), 'success')
 end)
 
 -- Key Bindings
@@ -181,7 +181,7 @@ local toogleAdmin = lib.addKeybind({
 })
 
 --noclip
-RegisterCommand('nc', function()
+RegisterCommand('noclip', function()
     TriggerEvent(Config.Actions["noclip"].event)
 end, false)
 
